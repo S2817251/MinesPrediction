@@ -1,356 +1,138 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>MINES HACK (ALL IN ONE)</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      margin: 0;
-      padding: 0;
-      background: radial-gradient(circle at top, #0a1f4d, #001437);
-      display: flex;
-      justify-content: center;
-      color: #ffd700;
-      overflow-x: hidden;
-    }
-
-    .app {
-      width: 100%;
-      max-width: 420px;
-      min-height: 100vh;
-      padding: 15px;
-      box-sizing: border-box;
-    }
-
-    /* Header Card */
-    .card {
-      background: rgba(0, 30, 80, 0.7);
-      backdrop-filter: blur(8px);
-      border-radius: 12px;
-      box-shadow: 0 0 15px rgba(0, 102, 255, 0.4);
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      margin-bottom: 18px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .cardimg {
-      width: 30%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .cardimg img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .cardinfo {
-      width: 70%;
-      padding-left: 10px;
-      font-size: 15px;
-      font-weight: bold;
-      color: #ffd700;
-      text-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
-    }
-
-    /* Main Box */
-    .main-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 15px;
-      margin-bottom: 20px;
-      backdrop-filter: blur(8px);
-      box-shadow: 0 0 10px rgba(0, 100, 255, 0.2);
-    }
-
-    /* Selector */
-    .selector {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .selector button {
-      background: linear-gradient(135deg, #003b83, #0063c7);
-      color: #ffd700;
-      border: none;
-      border-radius: 8px;
-      padding: 10px;
-      width: 90%;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(0, 102, 255, 0.4);
-      transition: all 0.3s ease;
-    }
-
-    .selector button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 20px rgba(0, 102, 255, 0.6);
-    }
-
-    .dropdown {
-      display: none;
-      background: rgba(0, 50, 120, 0.8);
-      border-radius: 8px;
-      margin-top: 6px;
-      overflow: hidden;
-    }
-
-    .dropdown div {
-      padding: 10px;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      color: #ffd700;
-      cursor: pointer;
-      transition: background 0.2s;
-    }
-
-    .dropdown div:hover {
-      background: rgba(0, 80, 200, 0.8);
-    }
-
-    .selected-text {
-      text-align: center;
-      margin: 10px 0;
-      color: #fff;
-      text-shadow: 0 0 8px rgba(255, 255, 255, 0.4);
-    }
-
-    /* Grid */
-    .grid-container {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 10px; /* Increased space between boxes */
-      justify-content: center;
-      margin: 18px auto;
-      width: 90%;
-      padding: 8px;
-      box-sizing: border-box;
-    }
-
-    .grid-item {
-      width: 100%;
-      aspect-ratio: 1/1;
-      background-image: url("grid.png");
-      background-size: cover;
-      background-position: center;
-      border-radius: 8px;
-      transition: transform 0.2s ease, box-shadow 0.3s ease;
-      box-shadow: inset 0 0 8px rgba(255, 255, 255, 0.05), 0 0 8px rgba(0, 0, 0, 0.6);
-    }
-
-    .grid-item.diamond {
-      background-image: url("star.png");
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.8), inset 0 0 10px rgba(255, 255, 255, 0.2);
-      transform: scale(1.05);
-    }
-
-    .grid-item:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-    }
-
-    .grid-item:active {
-      transform: scale(0.96);
-    }
-
-    /* Start Button */
-    .start-control {
-      text-align: center;
-    }
-
-    .start-control button {
-      width: 85%;
-      padding: 14px;
-      font-size: 17px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 10px;
-      background: linear-gradient(135deg, #0044cc, #007bff);
-      color: #ffd700;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 0 20px rgba(0, 123, 255, 0.5);
-      transition: all 0.3s ease;
-      animation: pulse 2s infinite;
-    }
-
-    @keyframes pulse {
-      0% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
-      50% { transform: scale(1.06); box-shadow: 0 0 25px rgba(0, 123, 255, 0.8); }
-      100% { transform: scale(1); box-shadow: 0 0 15px rgba(0, 123, 255, 0.5); }
-    }
-
-    .start-control button:hover {
-      transform: scale(1.1);
-    }
-
-    /* Bottom buttons */
-    .bottom-box {
-      background: rgba(255, 255, 255, 0.05);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      border-radius: 12px;
-      padding: 12px;
-      text-align: center;
-      backdrop-filter: blur(8px);
-    }
-
-    .bottom-box button {
-      width: 85%;
-      padding: 12px;
-      font-size: 16px;
-      margin: 6px 0;
-      border: none;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #003b83, #0063c7);
-      color: #ffd700;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-
-    .bottom-box button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-    }
-
-    /* Popup */
-    .popup-overlay {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 999;
-    }
-
-    .popup-content {
-      background: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      font-size: 16px;
-      color: #000;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MINES HACK (ALL IN ONE)</title>
+<style>
+body { font-family: Arial, sans-serif; margin: 0; padding: 0; background: #1b1f38; display: flex; justify-content: center; }
+.app { width: 100%; max-width: 420px; /* mobile frame */ background: #1b1f38; min-height: 100vh; padding: 10px; box-sizing: border-box; }
+.card { display: flex; background: #fff; border-radius: 5px; overflow: hidden; margin-bottom: 15px; }
+.cardimg { width: 40%; display: flex; justify-content: center; align-items: center; padding: 10px; }
+.cardimg img { width: 100%; border-radius: 5px; }
+.cardinfo { width: 60%; padding: 10px; display: flex; flex-direction: column; justify-content: center; }
+.cardinfo h5 { margin: 0 0 10px; }
+.cardinfo button { background: #2b2f45; color: #ffd700; border: none; border-radius: 5px; padding: 8px; }
+h4 { color: #ffd700; text-align: center; margin: 10px 0; }
+.selector { position: relative; margin: 10px; text-align: center; }
+.selector button { background: #2b2f45; color: #ffd700; border: none; border-radius: 5px; padding: 10px; width: 100%; font-size: 16px; }
+.dropdown { display: none; background: #2b2f45; color: #ffd700; border-radius: 5px; margin-top: 5px; }
+.dropdown div { padding: 10px; border-bottom: 1px solid #444; cursor: pointer; }
+.dropdown div:last-child { border-bottom: none; }
+.dropdown div:hover { background: #444; }
+.selected-text { margin: 10px 0; text-align: center; color: #fff; font-size: 16px; }
+.grid-container { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin: 15px 0; }
+.grid-item { background: #2b2f45; padding-top: 100%; position: relative; border-radius: 5px; }
+.grid-item.diamond { background-image: url("star.png"); background-size: contain; background-position: center; background-repeat: no-repeat; background-color: #1e2230; }
+.controls { text-align: center; }
+.controls button { width: 80%; margin: 5px auto; padding: 10px; font-size: 16px; border: none; border-radius: 5px; background: #2b2f45; color: #ffd700; }
+/* Popup */
+.popup-overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+.popup-content { background: #fff; padding: 20px; border-radius: 5px; text-align: center; font-size: 16px; color: #000; }
+</style>
 </head>
 <body>
-  <div class="app">
-    <div class="card">
-      <div class="cardimg">
-        <img src="logo.png" alt="logo" />
-      </div>
-      <div class="cardinfo">💎 MINES HACK (USE FOR ALL PLATFORM)</div>
-    </div>
+<div class="app">
+<div class="card">
+<div class="cardimg">
+<img src="stake.png" alt="logo">
+</div>
+<div class="cardinfo">
+<h5>MINES HACK (USE FOR ALL PLATFORM)</h5>
+</div>
+</div>
+<div class="selector">
+<button id="arrowBtn">▼ Select your mines</button>
+<div class="dropdown" id="dropdown">
+<div data-value="1">1💣</div>
+<div data-value="2">2💣</div>
+<div data-value="4">4💣</div>
+<div data-value="7">7💣</div>
+<div data-value="10">10💣</div>
+<div data-value="15">15💣</div>
+</div>
+</div>
+<div class="selected-text" id="selectedText"></div>
+<div class="grid-container" id="grid"></div>
+<div class="controls">
+<button id="startBtn">START</button>
+</div>
+<div class="controls">
+<button onclick="window.open('https://t.me/its_helper219','_blank')">TELEGRAM</button>
+<button onclick="window.open('https://linkopen19.github.io/BestGameLink/','_blank')">BEST GAME</button>
+<button onclick="window.location.href='howtouse.html'">HOW TO USE</button>
+</div>
+</div>
+<div class="popup-overlay" id="popup">
+<div class="popup-content">Please select a number first!</div>
+</div>
+<script>
+const grid = document.getElementById('grid');
+const startBtn = document.getElementById('startBtn');
+const arrowBtn = document.getElementById('arrowBtn');
+const dropdown = document.getElementById('dropdown');
+const selectedText = document.getElementById('selectedText');
+const popup = document.getElementById('popup');
+let selectedMines = null;
 
-    <div class="main-box">
-      <div class="selector">
-        <button id="arrowBtn">▼ Select your mines</button>
-        <div class="dropdown" id="dropdown">
-          <div data-value="1">1💣</div>
-          <div data-value="2">2💣</div>
-          <div data-value="4">4💣</div>
-          <div data-value="7">7💣</div>
-          <div data-value="10">10💣</div>
-          <div data-value="15">15💣</div>
-        </div>
-      </div>
-      <div class="selected-text" id="selectedText"></div>
+// Create 25 grid items
+for (let i=0; i<25; i++) {
+const div = document.createElement('div');
+div.className = 'grid-item';
+grid.appendChild(div);
+}
 
-      <div class="grid-container" id="grid"></div>
+// Dropdown toggle
+arrowBtn.addEventListener('click', () => {
+dropdown.style.display = dropdown.style.display === 'block' ? 'none' : 'block';
+// reset everything if arrow clicked
+clearBoard();
+selectedMines = null;
+selectedText.textContent = '';
+startBtn.textContent = 'START';
+});
 
-      <div class="start-control">
-        <button id="startBtn">START</button>
-      </div>
-    </div>
+// Dropdown select
+dropdown.querySelectorAll('div').forEach(opt => {
+opt.addEventListener('click', () => {
+selectedMines = parseInt(opt.dataset.value);
+// FIX: wrap text in quotes for JS
+selectedText.textContent = `Your selected mines: ${opt.textContent}`;
+dropdown.style.display = 'none';
+});
+});
 
-    <div class="bottom-box">
-      <button onclick="window.open('https://t.me/+gpt7bMQia4kyMzJl','_blank')">TELEGRAM</button>
-      <button onclick="window.open('https://linkopen19.github.io/BestGameLink/','_blank')">BEST GAME</button>
-      <button onclick="window.location.href='howtouse.html'">HOW TO USE</button>
-    </div>
-  </div>
+// Results mapping
+const resultsMap = { 1: 13, 2: 8, 4: 4, 7: 3, 10: 2, 15: 1 };
 
-  <div class="popup-overlay" id="popup">
-    <div class="popup-content">Please select a number first!</div>
-  </div>
+function clearBoard() {
+[...grid.children].forEach(c => c.classList.remove('diamond'));
+}
 
-  <script>
-    const grid = document.getElementById("grid");
-    const startBtn = document.getElementById("startBtn");
-    const arrowBtn = document.getElementById("arrowBtn");
-    const dropdown = document.getElementById("dropdown");
-    const selectedText = document.getElementById("selectedText");
-    const popup = document.getElementById("popup");
-    let selectedMines = null;
+function showResult() {
+clearBoard();
+if (!selectedMines) {
+popup.style.display = 'flex';
+setTimeout(() => popup.style.display = 'none', 2000);
+return;
+}
+const count = resultsMap[selectedMines];
+const indexes = [];
+while (indexes.length < count) {
+const r = Math.floor(Math.random()*25);
+if (!indexes.includes(r)) indexes.push(r);
+}
+indexes.forEach(i => grid.children[i].classList.add('diamond'));
+}
 
-    // Grid create
-    for (let i = 0; i < 25; i++) {
-      const div = document.createElement("div");
-      div.className = "grid-item";
-      grid.appendChild(div);
-    }
-
-    // Dropdown toggle
-    arrowBtn.addEventListener("click", () => {
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-      clearBoard();
-      selectedMines = null;
-      selectedText.textContent = "";
-      startBtn.textContent = "START";
-    });
-
-    // Select mines
-    dropdown.querySelectorAll("div").forEach((opt) => {
-      opt.addEventListener("click", () => {
-        selectedMines = parseInt(opt.dataset.value);
-        selectedText.textContent = `Your selected mines: ${opt.textContent}`;
-        dropdown.style.display = "none";
-      });
-    });
-
-    // Results mapping
-    const resultsMap = { 1: 13, 2: 8, 4: 4, 7: 3, 10: 2, 15: 1 };
-
-    function clearBoard() {
-      [...grid.children].forEach((c) => c.classList.remove("diamond"));
-    }
-
-    function showResult() {
-      clearBoard();
-      if (!selectedMines) {
-        popup.style.display = "flex";
-        setTimeout(() => (popup.style.display = "none"), 2000);
-        return;
-      }
-      const count = resultsMap[selectedMines];
-      const indexes = [];
-      while (indexes.length < count) {
-        const r = Math.floor(Math.random() * 25);
-        if (!indexes.includes(r)) indexes.push(r);
-      }
-      indexes.forEach((i) => grid.children[i].classList.add("diamond"));
-    }
-
-    startBtn.addEventListener("click", () => {
-      if (startBtn.textContent === "START") {
-        showResult();
-        if (selectedMines) startBtn.textContent = "NEXT";
-      } else if (startBtn.textContent === "NEXT") {
-        showResult();
-      }
-    });
-  </script>
+startBtn.addEventListener('click', () => {
+if (startBtn.textContent === 'START') {
+showResult();
+if (selectedMines) startBtn.textContent = 'NEXT';
+} else if (startBtn.textContent === 'NEXT') {
+showResult();
+}
+});
+</script>
 </body>
 </html>
